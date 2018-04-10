@@ -4,7 +4,7 @@
 
 
 # requirements
-### Django==2.0.3
-### Markdown==2.6.11
-### Pygments==2.2.0
-### pytz==2018.3
+#### Django==2.0.3
+#### Markdown==2.6.11
+#### Pygments==2.2.0
+#### pytz==2018.3
