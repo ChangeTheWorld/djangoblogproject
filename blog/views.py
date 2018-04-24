@@ -32,11 +32,19 @@ def detail(request, pk):
               }
     return render(request, 'blog/detail.html', context=context)
     
-def category(request, pk):
+#def category(request, pk):
     # 记得在开始部分导入 Category 类
-    cate = get_object_or_404(Category, pk=pk)
-    post_list = Post.objects.filter(category=cate).order_by('-created_time')
-    return render(request, 'blog/index.html', context={'post_list': post_list})
+#    cate = get_object_or_404(Category, pk=pk)
+#    post_list = Post.objects.filter(category=cate).order_by('-created_time')
+#    return render(request, 'blog/index.html', context={'post_list': post_list})
+class CategoryView(ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+    
+    def get_queryset(self):
+        cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
+        return super(CategoryView, self).get_queryset().filter(category=cate)
     
 def archives(request, year, month):
     post_list = Post.objects.filter(created_time__year=year,
