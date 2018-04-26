@@ -4,6 +4,7 @@ from .models import Post, Category
 import markdown
 from comments.forms import CommentForm
 from django.views.generic import ListView, DetailView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 '''Django ListView视图'''
 # Create your views here.
 
@@ -14,7 +15,8 @@ class IndexView(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
-    
+    #指定 paginate_by 属性后开启分页功能，其值代表每一页包含多少篇文章
+    paginate_by = 2
 '''    
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
