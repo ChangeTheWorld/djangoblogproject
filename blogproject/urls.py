@@ -14,10 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from blog.feeds import AllPostsRssFeed
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'',include('blog.urls')),
     path(r'',include('comments.urls')),
+	#re_path(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
+	#正则path
+	path('all/rss/', AllPostsRssFeed(), name='rss'),
+	#跟上面被注释掉的那一句效果一样的
 ]
