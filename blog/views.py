@@ -6,11 +6,23 @@ from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
 from comments.forms import CommentForm
 from django.views.generic import ListView, DetailView
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 '''Django ListView视图'''
-# Create your views here.
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
+"""Search"""
 
+# Create your views here.
+def search(request):
+	q = request.GET.get('q')
+	error_msg = ''
+	
+	if not q:
+		error_msg = "请输入关键字"
+		return render(request, 'blog/index.html', {'error_msg': error_msg})
+	
+	post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
+	return render(request, 'blog/index.html', {'error_msg': error_msg,
+											   'post_list': post_list})
 #def index(request):
 #    post_list = Post.objects.all()
 #    return render(request, 'blog/index.html', context={'post_list': post_list})

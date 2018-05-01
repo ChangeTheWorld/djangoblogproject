@@ -25,4 +25,5 @@ urlpatterns = [
 	#正则path
 	path('all/rss/', AllPostsRssFeed(), name='rss'),
 	#跟上面被注释掉的那一句效果一样的
+	re_path(r'^search/', include('haystack.urls')),
 ]
