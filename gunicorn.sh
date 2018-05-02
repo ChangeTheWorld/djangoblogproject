@@ -1,0 +1,1 @@
+gunicorn --bind unix:/tmp/www.imssip.com.socket blogproject.wsgi:application
